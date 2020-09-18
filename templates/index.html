@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block body %}
+
+<!-- Thread -->
+{% if current_user %}
+	{% macro thread(t) -%}
+	<div class="thread" style="border-color: {{t.color}} !important;">
+		<div style="color: {{t.color}}" class="thread-header">{{t.author}} <i class="thread-published">{{t.timestamp|humantime}}</i></div>
+		<div class="thread-content" style="color: {{t.color}} !important;" data-toggle="collapse" data-target="#thread{{t._id}}">{{t.content}}</div>
+		
+		<div class="collapse" id="thread{{t._id}}">
+			<form class="comment" action="/comment" method="POST">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+					  <span class="input-group-text" id="basic-addon1">Thread color  <input type="color" id="favcolor" name="color" value="{{t.color}}"></span>
+					</div>
+					<input name="comment" type="text" placeholder="Type your comment and press Enter!" autocomplete="off" id="reply-thread{{t._id}}" class="form-control" required autofocus>
+				</div>
+				<input name="id" value="{{t._id}}" type="hidden">
+			</form>
+		</div>
+		{% for subthread in t.subthreads %}
+			{{ thread(subthread|get_thread) }}
+		{% endfor %}
+		<!-- Subthreads go here -->
+	</div>
+	{%- endmacro %}
+	<!-- Start with the master thread -->
+	{% if main_thread %}
+	{{ thread(main_thread) }}
+	{% endif %}
+	
+{% else %}
+	{% include 'login.html' %}
+{% endif %}
+			
+{% endblock %}
