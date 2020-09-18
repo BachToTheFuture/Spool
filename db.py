@@ -7,8 +7,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 
 ### Database setup ###
-mongo_pass = os.getenv('mongoaccess')
-mongo_uri = "mongodb+srv://admin:kdrC8y6Dtx8ThP1J@harvard.mrpdl.mongodb.net/t4sg?retryWrites=true&w=majority"
+mongo_uri = os.getenv("mongouri")
 client = pymongo.MongoClient(mongo_uri)
 db = client.main
 users = db.users
