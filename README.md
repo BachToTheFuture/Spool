@@ -1,3 +1,5 @@
 
 # Spool
-!(demo)[demo.png]
+![demo](demo.png)
+
+A minimalistic website with login functionality and Reddit-like comment threads.
