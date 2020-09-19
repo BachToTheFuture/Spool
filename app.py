@@ -22,7 +22,6 @@ log.setLevel(logging.ERROR)
 """
 CLEARING CACHE
 ===================================
-Don't delete any of this lol
 """
 @app.after_request
 def add_header(r):
@@ -70,7 +69,6 @@ def unauthorized_handler():
 """
 ROUTES
 ==============================
-Create new pages/links here!
 """
 @app.template_filter('get_thread')
 def get_thread(tid):
@@ -145,8 +143,6 @@ def logout():
 """
 RUN APP
 ===================================
-Note: might need to change host and set
-debug to false once deployed.
 """
 
 if __name__ == "__main__":

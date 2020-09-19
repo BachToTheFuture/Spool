@@ -13,16 +13,6 @@ db = client.main
 users = db.users
 threads = db.threads
 
-def get_comments():
-	return threads.find_one({})
-
-def create_comment(thread_id, comment):
-	comment["timestamp"] = datetime.now()
-	comment["subthreads"] = []
-	new = threads.insert_one(comment)
-	threads.update_one({"_id": ObjectId(thread_id)}, {"$push":{"subthreads":new.inserted_id}})
-	return new
-
 ### Utility functions ###
 # Basic db structure of a user
 def user_template():
@@ -58,3 +48,14 @@ def delete_user(name):
 ### DANGER ###
 def delete_all_users():
 	return users.delete_many({})
+
+### Comments ###
+def get_comments():
+	return threads.find_one({})
+
+def create_comment(thread_id, comment):
+	comment["timestamp"] = datetime.now()
+	comment["subthreads"] = []
+	new = threads.insert_one(comment)
+	threads.update_one({"_id": ObjectId(thread_id)}, {"$push":{"subthreads":new.inserted_id}})
+	return new
